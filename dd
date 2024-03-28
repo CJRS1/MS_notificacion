@@ -1,0 +1,971 @@
+server {
+    listen 80;
+        server_name 172.16.0.116;
+
+        location / {
+            return 301 https://$host$request_uri;
+    }
+
+    # process
+
+    location /process/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://process:3000/  http://172.16.0.116/process;
+    proxy_pass       http://process:3000/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /process/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://process:3000/healthy  http://172.16.0.116/process/healthy;
+    proxy_pass       http://process:3000/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+  #  format
+
+    location /format/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://format:3001/  http://172.16.0.116/format;
+    proxy_pass       http://format:3001/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /format/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://format:3001/healthy  http://172.16.0.116/format/healthy;
+    proxy_pass       http://format:3001/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+  #  history
+
+    location /history/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://history:3002/  http://172.16.0.116/history;
+    proxy_pass       http://history:3002/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /history/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://history:3002/healthy  http://172.16.0.116/history/healthy;
+    proxy_pass       http://history:3002/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+  #  report
+
+    location /report/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://report:3003/  http://172.16.0.116/report;
+    proxy_pass       http://report:3003/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /report/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://report:3003/healthy  http://172.16.0.116/report/healthy;
+    proxy_pass       http://report:3003/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+    # user
+
+    location /user/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://user:3005/  http://172.16.0.116/user;
+    proxy_pass       http://user:3005/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /user/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://user:3005/healthy  http://172.16.0.116/user/healthy;
+    proxy_pass       http://user:3005/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+    # notification
+
+    location /notification/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://notification:3007/  http://172.16.0.116/notification;
+    proxy_pass       http://notification:3007/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /notification/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://notification:3007/healthy  http://172.16.0.116/notification/healthy;
+    proxy_pass       http://notification:3007/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+    # authentication
+
+    location /authentication/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://authentication:3008/  http://172.16.0.116/authentication;
+    proxy_pass       http://authentication:3008/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /authentication/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://authentication:3008/healthy  http://172.16.0.116/authentication/healthy;
+    proxy_pass       http://authentication:3008/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+}
+
+server {
+    listen 443 ssl;
+        server_name 172.16.0.116;
+
+        ssl_certificate /etc/ssl/chain.crt;
+        ssl_certificate_key /etc/ssl/private.key;
+
+        location / {
+                proxy_pass         http://172.16.0.116:4000;
+                proxy_redirect     off;
+                proxy_http_version 1.1;
+                proxy_cache_bypass $http_upgrade;
+                proxy_set_header   Upgrade $http_upgrade;
+                proxy_set_header   Connection keep-alive;
+                proxy_set_header   Host $host;
+                proxy_set_header   X-Real-IP $remote_addr;
+                proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header   X-Forwarded-Proto $scheme;
+                proxy_set_header   X-Forwarded-Host $server_name;
+                proxy_buffer_size           128k;
+                proxy_buffers               4 256k;
+                proxy_busy_buffers_size     256k;
+        }
+
+    # process
+
+    location /process/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://process:3000/  http://172.16.0.116/process;
+    proxy_pass       http://process:3000/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /process/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://process:3000/healthy  http://172.16.0.116/process/healthy;
+    proxy_pass       http://process:3000/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+  #  format
+
+    location /format/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://format:3001/  http://172.16.0.116/format;
+    proxy_pass       http://format:3001/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /format/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://format:3001/healthy  http://172.16.0.116/format/healthy;
+    proxy_pass       http://format:3001/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+  #  history
+
+    location /history/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://history:3002/  http://172.16.0.116/history;
+    proxy_pass       http://history:3002/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /history/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://history:3002/healthy  http://172.16.0.116/history/healthy;
+    proxy_pass       http://history:3002/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+  #  report
+
+    location /report/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://report:3003/  http://172.16.0.116/report;
+    proxy_pass       http://report:3003/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /report/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://report:3003/healthy  http://172.16.0.116/report/healthy;
+    proxy_pass       http://report:3003/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+    # user
+
+    location /user/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://user:3005/  http://172.16.0.116/user;
+    proxy_pass       http://user:3005/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /user/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://user:3005/healthy  http://172.16.0.116/user/healthy;
+    proxy_pass       http://user:3005/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+    # notification
+
+    location /notification/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://notification:3007/  http://172.16.0.116/notification;
+    proxy_pass       http://notification:3007/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /notification/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://notification:3007/healthy  http://172.16.0.116/notification/healthy;
+    proxy_pass       http://notification:3007/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+    # authentication
+
+    location /authentication/ {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';  
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://authentication:3008/  http://172.16.0.116/authentication;
+    proxy_pass       http://authentication:3008/;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+
+
+    location /authentication/healthy {
+     if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*' always;
+      add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+      add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+      add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Max-Age' 1728000;
+      add_header 'Content-Type' 'text/plain; charset=utf-8';
+      add_header 'Content-Length' 0;
+      return 204;
+    }
+
+    client_max_body_size    2000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout   600;
+    proxy_read_timeout   600;
+    proxy_buffer_size    32k;
+    proxy_buffers     16 32k;
+    proxy_busy_buffers_size 64k;
+    proxy_temp_file_write_size 64k;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect   http://authentication:3008/healthy  http://172.16.0.116/authentication/healthy;
+    proxy_pass       http://authentication:3008/healthy;
+
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+}
